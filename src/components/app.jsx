@@ -14,16 +14,31 @@ class App extends Component {
     sum: 0,
   };
   handleIncrement = (habit) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    habits[index].count++;
+    // const habits = [...this.state.habits];
+    // const index = habits.indexOf(habit);
+    // habits[index].count++;
+
+    // 오브젝트의 하위 값만 변경해서 업데이트하면 shallow comparison 에서 스킵되서 렌더링이 되지 않을 수도 있음
+    // 따라서, 오브젝트 값을 업데이트가 일어 날때마다 새로운 오브젝트를 생성하는 것으로 로직 변경
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        // habit object를 그대로 복사해서 새로운 오브젝트 생성 {...habit} - deconstructing object
+        return { ...habit, count: habit.count + 1 };
+      }
+      return item;
+    });
+
     this.setState({ habits: habits });
   };
   handleDecrement = (habit) => {
-    const habits = [...this.state.habits];
-    const index = habits.indexOf(habit);
-    const count = habits[index].count - 1;
-    habits[index].count = count < 0 ? 0 : count;
+    const count = habit.count - 1;
+    const habits = this.state.habits.map((item) => {
+      if (item.id === habit.id) {
+        return { ...habit, count: count < 0 ? 0 : count };
+      }
+      return item;
+    });
+
     this.setState({ habits: habits });
   };
   handleDelete = (habit) => {
