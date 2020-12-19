@@ -42,7 +42,7 @@ class App extends Component {
       habit.count = 0;
       return habit;
     });
-    this.setState((habits: habits));
+    this.setState({ habits: habits });
   };
 
   render() {
@@ -50,9 +50,7 @@ class App extends Component {
       <section>
         <Navbar
           totalCount={this.state.habits.filter((item) => item.count > 0).length}
-        >
-          {" "}
-        </Navbar>
+        ></Navbar>
         <Habits
           habits={this.state.habits}
           onIncrement={this.handleIncrement}
