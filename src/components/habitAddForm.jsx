@@ -9,7 +9,7 @@ class HabitAddForm extends Component {
     const name = this.inputRef.current.value;
     name && this.props.onAdd(name);
     // this.inputRef.current.value = "";
-    this.formRef.current.rest();
+    this.formRef.current.reset();
   };
   render() {
     return (
